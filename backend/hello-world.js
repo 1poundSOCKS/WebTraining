@@ -162,12 +162,12 @@ app.put('/api/users', (req, res) => {
           console.log(`Connected to MongoDB '${MongoURL}'`)
           db.db("test").collection("users").update({email: `${email}`}, req.body, (err, result) => {
             if ( err ) {
-              console.log(`Failed to insert user`)
+              console.log(`Failed to update user`)
               console.log(`${err}`)
-              res.status(500).send("Failed to add new user")
+              res.status(500).send("Failed to update user")
             }
             else {
-              console.log(`User inserted successfully: id=${result.insertedId}`)
+              console.log(`User updated successfully: id=${result.insertedId}`)
               res.json({
                 status: "success",
                 id: result.insertedId
