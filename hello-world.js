@@ -9,6 +9,20 @@ const MongoURL = "mongodb://localhost:27017/test"
 
 const port = process.env.PORT || 3000
 
+function ValidateRequest(req, callback) {
+
+  const Joi = require('joi')
+  const any = Joi.any()
+
+  const schema = Joi.object().keys({
+    forename: Joi.string(),
+    surname: Joi.string(),
+    email: Joi.string()
+  })
+
+  const result = Joi.validate(schema, req.body, callback)
+}
+
 // read an existing user's data by id
 app.get('/api/users/:id', (req, res) => {
 
@@ -85,20 +99,6 @@ app.get('/api/users/findbyemail/:email', (req, res) => {
   }
 })
 
-function ValidateRequest(req, callback) {
-
-  const Joi = require('joi')
-  const any = Joi.any()
-
-  const schema = Joi.object().keys({
-    forename: Joi.string(),
-    surname: Joi.string(),
-    email: Joi.string()
-  })
-
-  const result = Joi.validate(schema, req.body, callback)
-}
-
 // create a new user
 app.post('/api/users', (req, res) => {
 
@@ -139,7 +139,7 @@ app.post('/api/users', (req, res) => {
 })
 
 // update an existing user
-app.put('/api/users/:email', (req, res) => {
+app.put('/api/users', (req, res) => {
 
   ValidateRequest(req, (err, value) => {
     if ( err ) {
@@ -150,6 +150,9 @@ app.put('/api/users/:email', (req, res) => {
       })
     }
     else {
+      const email = req.body.email
+      console.log(`Updating user with email "${email}"`)
+      
       MongoClient.connect(MongoURL, (err,db) => {
         if ( err ) {
           console.log(`Failed to connect to MongoDB '${MongoURL}'`)
@@ -157,7 +160,7 @@ app.put('/api/users/:email', (req, res) => {
         }
         else {
           console.log(`Connected to MongoDB '${MongoURL}'`)
-          db.db("test").collection("users").insertOne(req.body, (err, result) => {
+          db.db("test").collection("users").update({email: `${email}`}, req.body, (err, result) => {
             if ( err ) {
               console.log(`Failed to insert user`)
               console.log(`${err}`)
