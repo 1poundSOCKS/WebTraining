@@ -1,7 +1,11 @@
 import React from 'react';
 import './logon.css';
+import { Cookies } from 'react-cookie';
 
 function LogonUser() {
+  var cookies = new Cookies();
+  cookies.set('web-test-logon', '12345');
+  window.location.reload();
 }
 
 function Logon() {
