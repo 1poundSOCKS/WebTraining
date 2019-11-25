@@ -3,6 +3,8 @@ import './App.css';
 import { Cookies } from 'react-cookie';
 import Logon from './components/logon.js';
 
+import titlePic from'./assets/miguels.jpg';
+
 function App() {
 
   var cookies = new Cookies();
@@ -11,8 +13,10 @@ function App() {
   if( !logon ) {
     return (
       <div className="App">
-        <h1>Web Test</h1>
-            <Logon/>
+        <h1>Red River Gorge</h1>
+        <p1>
+        <img src={titlePic} alt=""/>
+        </p1>
       </div>
     );
   }

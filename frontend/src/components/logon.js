@@ -5,6 +5,7 @@ import { Cookies } from 'react-cookie';
 function LogonUser() {
   var cookies = new Cookies();
   cookies.set('web-test-logon', '12345');
+  document.cookie.set('web-test-logon', '12345');
   window.location.reload();
 }
 
