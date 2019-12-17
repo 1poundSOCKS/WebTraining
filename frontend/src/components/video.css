@@ -1,0 +1,38 @@
+body {
+    background-color: lightgrey;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    background-color: darkgrey;
+}
+
+p {
+    font-family: verdana;
+    font-size: 20px;
+    text-align: center;
+}
+
+.button {
+    width: 150px;
+    text-align: center;
+    margin:0 auto;
+}
+
+.model-box {
+    margin:      auto;
+    position:   relative;
+    width:      50%;
+    height: 0;
+    padding-top:   30%; /* This is your aspect ratio */ }
+  
+  .model {
+    position: absolute;
+    top:      0;
+    left:     0;
+    bottom:   0;
+    right:    0;
+    width:    100%;
+    height:   100%
+  }
